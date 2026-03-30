@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dillan Varela Zelaya | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --navy: #0a1628;
+      --navy-mid: #122240;
+      --navy-light: #1e3a5f;
+      --navy-pale: #2a5080;
+      --accent: #c8a84b;
+      --accent-2: #e8c96b;
+      --bg: #f0f4f9;
+      --bg-grid: rgba(10,22,40,0.06);
+      --card: rgba(255,255,255,0.92);
+      --card-border: rgba(10,22,40,0.10);
+      --text: #0a1628;
+      --text-muted: #4a6080;
+      --text-light: #7a92b0;
+      --grid-size: 44px;
+      --shadow-sm: 0 2px 12px rgba(10,22,40,0.08);
+      --shadow-md: 0 8px 32px rgba(10,22,40,0.12);
+      --shadow-lg: 0 24px 64px rgba(10,22,40,0.16);
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+    html[data-theme="dark"] {
+      --white: #0a1628;
+      --navy: #e8f0fc;
+      --navy-mid: #c5d8f0;
+      --navy-light: #8aafd4;
+      --navy-pale: #5a84b8;
+      --bg: #060e1c;
+      --bg-grid: rgba(255,255,255,0.035);
+      --card: rgba(12,22,44,0.90);
+      --card-border: rgba(255,255,255,0.08);
+      --text: #e8f0fc;
+      --text-muted: #8aafd4;
+      --text-light: #5a7899;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ===== GRID BACKGROUND ===== */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--bg-grid) 1px, transparent 1px);
+      background-size: var(--grid-size) var(--grid-size);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 10%, rgba(10,22,40,0.04), transparent),
+        radial-gradient(ellipse 50% 40% at 85% 90%, rgba(10,22,40,0.05), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+    html[data-theme="dark"] body::after {
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 10%, rgba(30,80,150,0.12), transparent),
+        radial-gradient(ellipse 50% 40% at 85% 90%, rgba(200,168,75,0.06), transparent);
+    }
+
+    /* ===== LAYOUT ===== */
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ===== NAV BAR ===== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .nav-monogram {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+    html[data-theme="dark"] .nav-monogram {
+      background: linear-gradient(135deg, #1e3a5f, #2a5080);
+      color: #e8f0fc;
+    }
+    .nav-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .nav-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-link {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 7px 13px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-link:hover {
+      color: var(--text);
+      background: var(--bg-grid);
+    }
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 9px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-left: 8px;
+    }
+    .theme-btn:hover { background: var(--bg-grid); color: var(--text); }
+
+    /* ===== SECTION LABEL ===== */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+    .section-label::before {
+      content: "";
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* ===== HERO GRID ===== */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* ===== PANEL ===== */
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-md);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Corner accents on panels */
+    .panel::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--navy), transparent);
+      border-radius: 0 0 3px 0;
+    }
+    html[data-theme="dark"] .panel::before {
+      background: linear-gradient(90deg, #2a5080, transparent);
+    }
+
+    /* ===== HERO MAIN ===== */
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(200,168,75,0.3);
+      background: rgba(200,168,75,0.08);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+    .hero-tag .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(200,168,75,0.2);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(200,168,75,0.2); }
+      50% { box-shadow: 0 0 0 8px rgba(200,168,75,0.08); }
+    }
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .hero-name em {
+      color: var(--navy-pale);
+      font-style: normal;
+    }
+    html[data-theme="dark"] .hero-name em { color: #5a84b8; }
+    .hero-role {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+      padding-left: 2px;
+    }
+    .hero-bio {
+      font-size: 0.97rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      max-width: 58ch;
+      margin-bottom: 30px;
+    }
+    .hero-bio strong { color: var(--text); font-weight: 600; }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    html[data-theme="dark"] .btn-primary {
+      background: linear-gradient(135deg, #1e3a5f, #2a5080);
+      color: #e8f0fc;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--card-border);
+    }
+    .btn-outline:hover { background: var(--bg-grid); border-color: var(--text-muted); }
+
+    /* ===== CODE BOX ===== */
+    .codebox {
+      margin-top: 28px;
+      padding: 20px 22px;
+      border-radius: var(--radius-sm);
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      position: relative;
+      overflow: hidden;
+    }
+    html[data-theme="dark"] .codebox {
+      background: rgba(6,14,28,0.95);
+      border-color: rgba(255,255,255,0.06);
+    }
+    .codebox::before {
+      content: "";
+      position: absolute;
+      top: 0; right: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle at top right, rgba(200,168,75,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .codebox-dots {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .codebox-dots span {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .codebox-dots span:nth-child(1) { background: #ff5f57; }
+    .codebox-dots span:nth-child(2) { background: #ffbd2e; }
+    .codebox-dots span:nth-child(3) { background: #28ca40; }
+    .code-line { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .kw { color: #79b8ff; }
+    .str { color: #9ecbff; }
+    .fn { color: #c8a84b; }
+    .cm { color: #4a6080; }
+    .punc { color: #8aafd4; }
+
+    /* ===== HERO SIDE ===== */
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .headshot-wrap {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .headshot-frame {
+      width: 100%;
+      aspect-ratio: 3/3.5;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%);
+      position: relative;
+    }
+    .headshot-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .headshot-badge {
+      position: absolute;
+      bottom: -14px;
+      right: 16px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(20px);
+    }
+    .headshot-badge img {
+      height: 32px;
+      width: auto;
+    }
+    .headshot-badge-text {
+      font-size: 0.72rem;
+      line-height: 1.3;
+    }
+    .headshot-badge-text strong {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+    .headshot-badge-text span { color: var(--text-muted); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .stat-box {
+      background: linear-gradient(135deg, var(--bg) 0%, rgba(10,22,40,0.03) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+    }
+    html[data-theme="dark"] .stat-box {
+      background: rgba(255,255,255,0.03);
+    }
+    .stat-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .stat-box.accent {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-color: transparent;
+      grid-column: span 2;
+    }
+    html[data-theme="dark"] .stat-box.accent {
+      background: linear-gradient(135deg, #1e3a5f, #122240);
+    }
+    .stat-box.accent .stat-label { color: rgba(255,255,255,0.5); }
+    .stat-box.accent .stat-value { color: #ffffff; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+      margin: 4px 0;
+    }
+
+    /* ===== TWO COL ===== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* ===== EXPERIENCE ===== */
+    .exp-panel { padding: 36px; }
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--card-border);
+      align-items: start;
+    }
+    .timeline-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .timeline-item:first-child { padding-top: 0; }
+    .job-company {
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+    .job-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .job-location {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+    .job-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .job-bullets li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding-left: 14px;
+      position: relative;
+    }
+    .job-bullets li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--text-light);
+      font-size: 0.7rem;
+    }
+    .job-date {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-light);
+      white-space: nowrap;
+      background: var(--bg-grid);
+      border: 1px solid var(--card-border);
+      border-radius: 7px;
+      padding: 5px 10px;
+      height: fit-content;
+    }
+
+    /* ===== SKILL CHIPS ===== */
+    .chip-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .chip {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--bg) 0%, rgba(10,22,40,0.05) 100%);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    html[data-theme="dark"] .chip { background: rgba(255,255,255,0.04); }
+    .chip:hover { border-color: var(--navy-pale); color: var(--text); background: rgba(10,22,40,0.06); }
+    .chip.navy {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: #ffffff;
+      border-color: transparent;
+    }
+    html[data-theme="dark"] .chip.navy { background: linear-gradient(135deg, #1e3a5f, #2a5080); }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-sm);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    html[data-theme="dark"] .card-icon { background: linear-gradient(135deg, #1e3a5f, #2a5080); }
+    .card-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+    .card-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .card-body {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+    .card-body strong { color: var(--text); font-weight: 600; }
+    .card-meta {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 10px;
+    }
+    .card-meta strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ===== EDU CARD ===== */
+    .edu-card {
+      position: relative;
+    }
+    .edu-card::after {
+      content: "";
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at bottom right, rgba(10,22,40,0.05), transparent 70%);
+      pointer-events: none;
+    }
+    .edu-gpa {
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .edu-school { font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 4px; }
+    .edu-degree { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.5; }
+    .edu-period { font-size: 0.78rem; color: var(--text-light); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 30px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-sm);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-left {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .footer-left strong { color: var(--text); display: block; margin-bottom: 2px; }
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ===== SECTION WRAPPER ===== */
+    .section-wrap { display: flex; flex-direction: column; gap: 0; }
+
+    /* ===== GRID HIGHLIGHT STRIPE ===== */
+    .grid-stripe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--navy), var(--navy-pale), var(--accent), transparent);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    html[data-theme="dark"] .grid-stripe {
+      background: linear-gradient(90deg, #1e3a5f, #2a5080, var(--accent), transparent);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-side { order: -1; }
+      .headshot-frame { aspect-ratio: 16/9; }
+      .headshot-frame img { object-position: center 20%; }
+      .three-col { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .page { width: calc(100% - 24px); gap: 14px; }
+      .panel { padding: 22px; }
+      .navbar { padding: 10px 16px; top: 12px; }
+      .two-col, .three-col { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+      .nav-links { display: none; }
+      .hero-name { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== NAV ===== -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="nav-monogram">DV</div>
+      <div>
+        <div class="nav-name">Dillan Varela Zelaya</div>
+        <div class="nav-sub">CS Student · University of Miami</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#education" class="nav-link">Education</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" type="button">
+      <span id="themeIcon">☀</span>
+      <span id="themeLabel">Light</span>
+    </button>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-grid">
+    <!-- Hero Main -->
+    <div class="panel hero-main">
+      <div class="grid-stripe"></div>
+      <div class="hero-tag">
+        <span class="dot"></span>
+        Pursuing Opportunities in Cybersecurity
+      </div>
+      <h1 class="hero-name">DILLAN<br><em>VARELA</em><br>ZELAYA</h1>
+      <p class="hero-role">B.S. Computer Science &nbsp;·&nbsp; Minor in Mathematics &nbsp;·&nbsp; HSF Scholar</p>
+      <p class="hero-bio">
+        Computer Science student at the <strong>University of Miami</strong> with a deep interest in <strong>cybersecurity</strong>, software development, and building elegant digital experiences. My background combines technical problem-solving, professional communication, and hands-on experience supporting teams in fast-paced environments.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/dillanvarela" target="_blank" rel="noopener">
+          ↗ LinkedIn
+        </a>
+        <a class="btn btn-outline" href="mailto:dillanzelaya88@gmail.com">
+          ✉ Email Me
+        </a>
+      </div>
+      <div class="codebox">
+        <div class="codebox-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="code-line"><span class="cm">// dillan_varela.cs</span></span>
+        <span class="code-line"><span class="kw">const</span> profile <span class="punc">=</span> <span class="punc">{</span></span>
+        <span class="code-line">&nbsp;&nbsp;name<span class="punc">:</span> <span class="str">"Dillan Varela Zelaya"</span><span class="punc">,</span></span>
+        <span class="code-line">&nbsp;&nbsp;focus<span class="punc">:</span> <span class="str">"Cybersecurity &amp; Software Dev"</span><span class="punc">,</span></span>
+        <span class="code-line">&nbsp;&nbsp;gpa<span class="punc">:</span> <span class="str">4.0</span><span class="punc">,</span></span>
+        <span class="code-line">&nbsp;&nbsp;languages<span class="punc">:</span> <span class="punc">[</span><span class="str">"Python"</span><span class="punc">,</span> <span class="str">"Java"</span><span class="punc">,</span> <span class="str">"Dart"</span><span class="punc">]</span></span>
+        <span class="code-line"><span class="punc">};</span></span>
+        <span class="code-line"><span class="kw">function</span> <span class="fn">buildFuture</span><span class="punc">() {</span></span>
+        <span class="code-line">&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"Secure. Elegant. Forward-thinking."</span><span class="punc">;</span></span>
+        <span class="code-line"><span class="punc">}</span></span>
+      </div>
+    </div>
+
+    <!-- Hero Side -->
+    <div class="panel hero-side">
+      <div class="section-label">Profile</div>
+      <div class="headshot-wrap">
+        <div class="headshot-frame">
+          <img src="https://via.placeholder.com/300x350?text=Headshot" alt="Dillan Varela Zelaya" />
+        </div>
+        <div class="headshot-badge">
+          <img src="https://via.placeholder.com/32" alt="Badge" />
+          <div class="headshot-badge-text">
+            <strong>Open to Work</strong>
+            <span>Cybersecurity, Software Dev</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box accent">
+          <div class="stat-label">GPA</div>
+          <div class="stat-value">4.0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Projects</div>
+          <div class="stat-value">5+</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Focus Area</div>
+          <div class="stat-value">Cybersecurity</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience" class="panel exp-panel">
+    <div class="grid-stripe"></div>
+    <div class="section-label">Experience</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div>
+          <div class="job-company">Cybertech Solutions</div>
+          <div class="job-title">Security Analyst Intern</div>
+          <div class="job-location">Remote</div>
+          <ul class="job-bullets">
+            <li>Analyzed security vulnerabilities in enterprise systems</li>
+            <li>Documented findings and recommended remediation strategies</li>
+            <li>Participated in penetration testing exercises</li>
+          </ul>
+        </div>
+        <div class="job-date">May 2024 – July 2025</div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <div class="job-company">Tech Support Services</div>
+          <div class="job-title">Technical Support Specialist</div>
+          <div class="job-location">Naples, FL</div>
+          <ul class="job-bullets">
+            <li>Provided first-level technical support to 100+ clients</li>
+            <li>Troubleshot hardware and software issues</li>
+            <li>Maintained detailed documentation of support tickets</li>
+          </ul>
+        </div>
+        <div class="job-date">Jan 2024 – May 2024</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS & SKILLS ===== -->
+  <div id="projects" class="three-col" id="skills">
+    <div class="card">
+      <div class="card-icon">⌨</div>
+      <div class="card-title">Project</div>
+      <div class="card-heading">Python Menu Driven Program</div>
+      <p class="card-body">A looping menu application that displays student info, converts numbers (1–10) to <strong>Roman numerals &amp; binary</strong>, and predicts population growth.</p>
+      <div class="card-meta"><strong>Aug 2025 – Present</strong> &nbsp;· Python</div>
+    </div>
+    <div class="card" id="skills">
+      <div class="card-icon">⚙</div>
+      <div class="card-title">Technical Skills</div>
+      <div class="card-heading">Languages &amp; Tools</div>
+      <div class="chip-cloud">
+        <span class="chip navy">Python</span>
+        <span class="chip navy">Java</span>
+        <span class="chip navy">Dart</span>
+        <span class="chip">VS Code</span>
+        <span class="chip">GitHub</span>
+        <span class="chip">Git</span>
+        <span class="chip">PyCharm</span>
+        <span class="chip">IntelliJ</span>
+        <span class="chip">Replit</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <div class="card-title">Languages &amp; Certs</div>
+      <div class="card-heading">Bilingual Professional</div>
+      <div class="chip-cloud">
+        <span class="chip navy">English — Full Professional</span>
+        <span class="chip navy">Spanish — Native</span>
+        <span class="chip">Innovations in Computing</span>
+        <span class="chip">Mobile App Development</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== EDUCATION ===== -->
+  <section id="education" class="panel">
+    <div class="grid-stripe"></div>
+    <div class="section-label">Education</div>
+    <div class="three-col" style="gap:16px;">
+      <div class="card edu-card">
+        <div class="edu-gpa">4.0</div>
+        <div class="edu-school">University of Miami</div>
+        <div class="edu-degree">B.S. Computer Science<br>Minor in Mathematics</div>
+        <div class="edu-period">Aug 2025 – May 2028</div>
+        <div class="chip-cloud" style="margin-top:12px;">
+          <span class="chip">Cybersecurity Track</span>
+          <span class="chip">Academic Excellence</span>
+        </div>
+      </div>
+      <div class="card edu-card">
+        <div class="edu-gpa">4.0</div>
+        <div class="edu-school">Florida SouthWestern State College</div>
+        <div class="edu-degree">Associate of Arts<br>General Studies</div>
+        <div class="edu-period">Aug 2023 – May 2025</div>
+      </div>
+      <div class="card edu-card">
+        <div class="edu-school" style="margin-top:8px;">Lely High School</div>
+        <div class="edu-degree">High School Diploma</div>
+        <div class="edu-period">Aug 2021 – May 2025</div>
+        <div class="chip-cloud" style="margin-top:12px;">
+          <span class="chip">Advanced Placement</span>
+          <span class="chip">Honor Roll</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-left">
+      <strong>Dillan Varela Zelaya</strong>
+      CS Student · University of Miami · Naples, FL
+    </div>
+    <div class="footer-links">
+      <a href="mailto:dillanzelaya88@gmail.com">✉ dillanzelaya88@gmail.com</a>
+      <a href="https://www.linkedin.com/in/dillanvarela" target="_blank" rel="noopener">↗ LinkedIn</a>
+      <a href="tel:+12399197014">📞 (239) 919-7014</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  const label = document.getElementById('themeLabel');
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') { root.setAttribute('data-theme','dark'); icon.textContent='☾'; label.textContent='Dark'; }
+  btn.addEventListener('click', function(){
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    icon.textContent = isDark ? '☀' : '☾';
+    label.textContent = isDark ? 'Light' : 'Dark';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>
